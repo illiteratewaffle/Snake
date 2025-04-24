@@ -11,6 +11,8 @@ module harry.snake {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens harry.snake to javafx.fxml;
-    exports harry.snake;
+    opens controllers to javafx.fxml;
+    exports controllers;
+    exports game;
+    opens game to javafx.fxml;
 }
