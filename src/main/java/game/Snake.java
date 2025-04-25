@@ -69,6 +69,10 @@ public class Snake {
         }
     }
 
+    public LinkedList<int[]> getBody(){
+        return body;
+    }
+
     /**
      * gets snake's head position
      * @return

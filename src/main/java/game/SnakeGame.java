@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Arrays;
+
 public class SnakeGame {
 
     private Snake snake;
@@ -8,9 +10,20 @@ public class SnakeGame {
     private int boardRows;
     private int boardColumns;
 
+    // to test program
+    public static void main(String[] args) {
+        SnakeGame game = new SnakeGame();
 
-    public void main(String[] args) {
+    }
+
+    public SnakeGame(){
         startGame();
+
+        // print the board
+        for (int[] element : board.getGrid()) {
+            System.out.println(Arrays.toString(element));
+        }
+
     }
 
     public void startGame(){
@@ -21,7 +34,9 @@ public class SnakeGame {
 
         snake = new Snake(boardColumns/2, boardRows/2);
 
+        apple = new Apple(board);
 
+        board.updateBoard(snake, apple);
 
     }
 

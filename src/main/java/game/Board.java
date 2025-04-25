@@ -1,5 +1,7 @@
 package game;
 
+import java.util.LinkedList;
+
 public class Board {
 
     private final int EMPTY = 0;
@@ -10,11 +12,27 @@ public class Board {
     private final int columns;
     private int[][] grid;
 
+    private LinkedList<int[]> snakeBody;
+    private int[] appleBody;
+
     public Board(int columns, int rows){
         this.columns = columns;
         this.rows = rows;
         this.grid = new int[rows][columns]; // rows = y, columns = x
         clearBoard();
+    }
+
+    public void updateBoard(Snake snake, Apple apple){
+        snakeBody = snake.getBody();
+        appleBody = apple.getApplePosition();
+
+        // updates board with snake body position
+        for(int i = 0; i < snakeBody.size(); i++){
+            setCell(snakeBody.get(i)[0] , snakeBody.get(i)[1], SNAKE);
+        }
+
+        // updates board with apple position
+        setCell(appleBody[0], appleBody[1], APPLE);
     }
 
     /**
@@ -42,6 +60,10 @@ public class Board {
 
     public int getColumns() {
         return columns;
+    }
+
+    public int[][] getGrid(){
+        return grid;
     }
 
     public int[] getApplePosition(){
