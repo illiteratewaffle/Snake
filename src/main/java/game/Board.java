@@ -44,4 +44,16 @@ public class Board {
         return columns;
     }
 
+    public int[] getApplePosition(){
+        for (int y = 0; y < rows; y++){
+            for (int x = 0; x < columns; x++) {
+                if (grid[y][x] == APPLE) {
+                    return new int[]{x,y};
+                }
+            }
+        }
+
+        return null;
+    }
+
 }
