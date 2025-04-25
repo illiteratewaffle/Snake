@@ -68,7 +68,7 @@ public class SnakeGame {
         if (snake.hasCrashed(boardColumns, boardRows)){
             state = GameState.GAME_OVER;
             System.out.println("game over you suck");
-
+            return; // makes program stop drawing the grid after a crash. gets rid of annoying out-of-bounds error message
         }
 
         // if snake eats apple
@@ -86,8 +86,6 @@ public class SnakeGame {
         }
         System.out.println("===============================================");
         // ===============
-
-        // Thread.sleep(1000); //pause for 1s
 
     }
 
