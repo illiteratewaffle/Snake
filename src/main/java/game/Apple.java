@@ -24,28 +24,23 @@ public class Apple {
      */
     public void spawn(Board board) {
         // check if there's already an apple on grid. if there's an apple, remove it
-        if (board.getApplePosition() != null) {
-            int[] applePosition = board.getApplePosition();
-            int applePositionX = applePosition[0];
-            int applePositionY = applePosition[1];
-            board.setCell(applePositionX, applePositionY, EMPTY);
-        }
+        if (board.getApplePosition() == null) { // if there is NO apple on board:
+            int rows = board.getRows();
+            int columns = board.getColumns();
 
-        int rows = board.getRows();
-        int columns = board.getColumns();
+            boolean applePlaced = false;
+            while(!applePlaced){
+                int randomX = random.nextInt(columns);
+                int randomY = random.nextInt(rows);
 
-        boolean applePlaced = false;
-        while(!applePlaced){
-            int randomX = random.nextInt(columns);
-            int randomY = random.nextInt(rows);
+                if(board.getCell(randomX, randomY) == EMPTY) {
+                    board.setCell(randomX, randomY, APPLE);
+                    applePlaced = true;
 
-            if(board.getCell(randomX, randomY) == EMPTY) {
-                board.setCell(randomX, randomY, APPLE);
-                applePlaced = true;
-
-                //update apple position
-                this.applePositionX = randomX;
-                this.applePositionY = randomY;
+                    //update apple position
+                    this.applePositionX = randomX;
+                    this.applePositionY = randomY;
+                }
             }
         }
     }
