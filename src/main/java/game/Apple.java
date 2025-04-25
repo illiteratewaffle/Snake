@@ -16,6 +16,12 @@ public class Apple {
 
     }
 
+    /**
+     * spawns apple in a random empty spot
+     *
+     * @param board
+     * @param snake
+     */
     public void spawn(Board board, Snake snake) {
         // check if there's already an apple on grid. if there's an apple, remove it
         if (board.getApplePosition() != null) {
