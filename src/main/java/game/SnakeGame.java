@@ -12,6 +12,7 @@ public class SnakeGame {
     private Board board;
     private int boardRows;
     private int boardColumns;
+    private GameState state;
 
     // to test program
     public static void main(String[] args) throws InterruptedException {
@@ -33,8 +34,11 @@ public class SnakeGame {
         snake = new Snake(boardColumns/2, boardRows/2); //spawn snake in middle of board
 
         apple = new Apple();
+        apple.setBoard(board);
 
-        while(true) {
+        state = GameState.RUNNING;
+
+        while(state == GameState.RUNNING) {
             gameLoop(snake, apple);
 
         }
@@ -42,7 +46,6 @@ public class SnakeGame {
 
     public void gameLoop(Snake snake, Apple apple){
 
-        apple.setBoard(board);
         apple.spawn();
 
         // Change direction using text
@@ -60,6 +63,13 @@ public class SnakeGame {
         // ================
 
         snake.move();
+
+        // if snake is died
+        if (snake.hasCrashed(boardColumns, boardRows)){
+            state = GameState.GAME_OVER;
+            System.out.println("game over you suck");
+
+        }
 
         // if snake eats apple
         if (Arrays.toString(snake.getHead()).equals(Arrays.toString(apple.getApplePosition()))){

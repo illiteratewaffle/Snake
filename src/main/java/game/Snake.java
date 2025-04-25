@@ -73,6 +73,28 @@ public class Snake {
         }
     }
 
+    public boolean hasCrashed(int boardColumns, int boardRows){
+
+        int[] head = getHead();
+        int x = head[0];
+        int y = head[1];
+
+        // crashes into wall
+        if (x < 0 || y < 0 || x >= boardColumns || y >= boardRows){
+            return true;
+        }
+
+        // crashes into itself
+        for (int i = 1; i < body.size(); i++){
+            if (Arrays.equals(head, body.get(i))){
+                return true;
+            }
+        }
+
+        // doesnt crash
+        return false;
+    }
+
     public LinkedList<int[]> getBody(){
         return body;
     }
