@@ -2,6 +2,7 @@ package game;
 
 import java.util.Arrays;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SnakeGame {
@@ -36,14 +37,6 @@ public class SnakeGame {
         while(true) {
             gameLoop(snake, apple);
 
-            // print the board. update board upon pressing enter
-            for (int[] element : board.getGrid()) {
-                System.out.println(Arrays.toString(element));
-            }
-            System.out.println("===============================================");
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
-
         }
     }
 
@@ -51,8 +44,40 @@ public class SnakeGame {
 
         apple.setBoard(board);
         apple.spawn();
+
+        // Change direction using text
+        Scanner scanner = new Scanner(System.in);
+        String direction = scanner.nextLine();
+        if (Objects.equals(direction, "w")) {
+            snake.changeDirection(Direction.NORTH);
+        } else if (Objects.equals(direction, "a")) {
+            snake.changeDirection(Direction.WEST);
+        } else if (Objects.equals(direction, "s")) {
+            snake.changeDirection(Direction.SOUTH);
+        } else if (Objects.equals(direction, "d")) {
+            snake.changeDirection(Direction.EAST);
+        }
+        // ================
+
         snake.move();
+
+        // if snake eats apple
+        if (Arrays.toString(snake.getHead()).equals(Arrays.toString(apple.getApplePosition()))){
+            snake.eat();
+            apple.despawn();
+            apple.spawn();
+        }
+
         board.updateBoard(snake, apple);
+
+        // print the board. update board upon pressing enter
+        for (int[] element : board.getGrid()) {
+            System.out.println(Arrays.toString(element));
+        }
+        System.out.println("===============================================");
+        // ===============
+
+        // Thread.sleep(1000); //pause for 1s
 
     }
 

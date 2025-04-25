@@ -25,7 +25,7 @@ public class Apple {
      */
     public void spawn() {
         // check if there's already an apple on grid. if there's an apple, remove it
-        if (board.getApplePosition() == null) { // if there is NO apple on board:
+        if (applePosition == null) { // if there is NO apple on board:
             int rows = board.getRows();
             int columns = board.getColumns();
 
@@ -44,6 +44,11 @@ public class Apple {
                 }
             }
         }
+    }
+
+    public void despawn(){
+        applePosition = null;
+
     }
 
     public void setBoard(Board board){
