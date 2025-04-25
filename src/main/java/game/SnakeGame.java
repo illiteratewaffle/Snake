@@ -2,6 +2,8 @@ package game;
 
 import java.util.Arrays;
 
+import java.util.Scanner;
+
 public class SnakeGame {
 
     private Snake snake;
@@ -19,8 +21,6 @@ public class SnakeGame {
     public SnakeGame() throws InterruptedException {
         startGame();
 
-
-
     }
 
     public void startGame() throws InterruptedException {
@@ -29,26 +29,31 @@ public class SnakeGame {
         boardRows = 20;
         board = new Board(boardColumns, boardRows);
 
-        while(true) {
-            gameLoop();
+        snake = new Snake(boardColumns/2, boardRows/2); //spawn snake in middle of board
 
-            // print the board
+        apple = new Apple();
+
+        while(true) {
+            gameLoop(snake, apple);
+
+            // print the board. update board upon pressing enter
             for (int[] element : board.getGrid()) {
                 System.out.println(Arrays.toString(element));
             }
             System.out.println("===============================================");
-
-            Thread.sleep(5000);
+            Scanner scanner = new Scanner(System.in);
+            scanner.nextLine();
 
         }
     }
 
-    public void gameLoop(){
-        snake = new Snake(boardColumns/2, boardRows/2);
+    public void gameLoop(Snake snake, Apple apple){
 
-        apple = new Apple(board);
-
+        apple.setBoard(board);
+        apple.spawn();
+        snake.move();
         board.updateBoard(snake, apple);
+
     }
 
 }

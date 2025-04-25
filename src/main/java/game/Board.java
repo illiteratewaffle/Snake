@@ -22,17 +22,24 @@ public class Board {
         clearBoard();
     }
 
-    public void updateBoard(Snake snake, Apple apple){
-        snakeBody = snake.getBody();
-        appleBody = apple.getApplePosition();
+    public void updateBoard(Snake snake, Apple apple) {
 
-        // updates board with snake body position
-        for(int i = 0; i < snakeBody.size(); i++){
-            setCell(snakeBody.get(i)[0] , snakeBody.get(i)[1], SNAKE);
+        // wipe only the cell that became empty
+        int[] oldTail = snake.getLastRemovedTail();
+        if (oldTail != null) {
+            setCell(oldTail[0], oldTail[1], EMPTY);
         }
 
-        // updates board with apple position
-        setCell(appleBody[0], appleBody[1], APPLE);
+        //  draw snake
+        for (int[] part : snake.getBody()) {
+            setCell(part[0], part[1], SNAKE);
+        }
+
+        // draw apple
+        int[] applePos = apple.getApplePosition();
+        if (applePos != null) {
+            setCell(applePos[0], applePos[1], APPLE);
+        }
     }
 
     /**

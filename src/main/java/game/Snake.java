@@ -2,11 +2,13 @@ package game;
 
 import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Snake {
 
     private LinkedList<int[]> body;
+    private int[] lastRemovedTail;
     private int size;
     private Direction currentDirection;
     private boolean shouldGrow;
@@ -44,8 +46,10 @@ public class Snake {
         body.addFirst(new int[]{x,y});
 
         if (!shouldGrow) {
-            body.removeLast();
+            lastRemovedTail = body.removeLast();
+
         } else { // if (shouldGrow)
+            lastRemovedTail = null;
             shouldGrow = false;
             size++;
         }
@@ -80,6 +84,14 @@ public class Snake {
     public int[] getHead(){
         // i wish this had the other interpretation but this is fine too
         return body.get(0);
+    }
+
+    public boolean getShouldGrow(){
+        return shouldGrow;
+    }
+
+    public int[] getLastRemovedTail() {
+        return lastRemovedTail;
     }
 
 }

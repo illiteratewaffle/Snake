@@ -9,20 +9,21 @@ public class Apple {
     private final int APPLE = 2;
     private final Random random = new Random();
 
+
+    private Board board;
     private int applePositionX;
     private int applePositionY;
     private int[] applePosition;
 
-    public Apple(Board board){
-        spawn(board);
+    public Apple(){
+
     }
 
     /**
      * spawns apple in a random empty spot
      *
-     * @param board
      */
-    public void spawn(Board board) {
+    public void spawn() {
         // check if there's already an apple on grid. if there's an apple, remove it
         if (board.getApplePosition() == null) { // if there is NO apple on board:
             int rows = board.getRows();
@@ -43,6 +44,10 @@ public class Apple {
                 }
             }
         }
+    }
+
+    public void setBoard(Board board){
+        this.board = board;
     }
 
     public int getApplePositionX() {
