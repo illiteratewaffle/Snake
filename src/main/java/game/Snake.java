@@ -58,11 +58,11 @@ public class Snake {
     public void changeDirection(Direction newDirection){
         if ((currentDirection == Direction.NORTH && newDirection == Direction.SOUTH) ||
                 (currentDirection == Direction.SOUTH && newDirection == Direction.NORTH) ||
-                (currentDirection == Direction.WEST  && newDirection == Direction.EAST)  ||
+                (currentDirection == Direction.WEST  && newDirection == Direction.EAST) ||
                 (currentDirection == Direction.EAST  && newDirection == Direction.WEST)) {
 
-            //error message: snake cant reverse
-            System.err.println("snake cant reverse");
+            //error message: snake cant reverse direction
+            System.err.println("snake cant reverse direction");
 
         } else {
             this.currentDirection = newDirection;
