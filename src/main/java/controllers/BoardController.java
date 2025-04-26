@@ -4,6 +4,7 @@ import game.Direction;
 import game.SnakeGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,8 +87,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         game.updateBoard();
         paint();
 
-        clock = new Timeline(
-                new KeyFrame(Duration.millis(500), new StepHandler(this)));
+        clock = new Timeline(new KeyFrame(Duration.millis(500), new StepHandler()));
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
     }
@@ -137,4 +137,12 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
             }
         }
     }
+
+    private class StepHandler implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            nextStep();
+        }
+    }
+
 }
