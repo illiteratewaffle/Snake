@@ -168,4 +168,13 @@ public class Snake {
         return lastRemovedTail;
     }
 
+    /**
+     * Returns the snake length
+     *
+     * @return an integer magnitude of snake length
+     */
+    public int getSize() {
+        return size;
+    }
+
 }

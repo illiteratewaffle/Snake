@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -20,13 +21,15 @@ import java.util.ResourceBundle;
 public class BoardController implements Initializable, EventHandler<KeyEvent> {
 
     private static final int CELL_SIZE = 30;
-    private static final Color EMPTY  = Color.web("2b2d30");
-    private static final Color SNAKE  = Color.LIMEGREEN;
-    private static final Color SNAKE_HEAD = Color.GOLD;
-    private static final Color APPLE  = Color.RED;
+    private static final Color EMPTY_COLOUR = Color.web("2b2d30");
+    private static final Color SNAKE_COLOUR = Color.LIMEGREEN;
+    private static final Color SNAKE_HEAD_COLOUR = Color.GOLD;
+    private static final Color APPLE_COLOUR = Color.RED;
 
     @FXML
     private GridPane boardGrid;
+    @FXML
+    private Label scoreDisplay;
 
     private SnakeGame snakeGame;
     private Rectangle[][] cells;
@@ -63,23 +66,23 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
 
         /* fixed-pixel column & row constraints */
         for (int c = 0; c < cols; c++) {
-            ColumnConstraints cc = new ColumnConstraints(CELL_SIZE);
-            cc.setMinWidth(CELL_SIZE);
-            cc.setMaxWidth(CELL_SIZE);
-            boardGrid.getColumnConstraints().add(cc);
+            ColumnConstraints columnConstraints = new ColumnConstraints(CELL_SIZE);
+            columnConstraints.setMinWidth(CELL_SIZE);
+            columnConstraints.setMaxWidth(CELL_SIZE);
+            boardGrid.getColumnConstraints().add(columnConstraints);
         }
         for (int r = 0; r < rows; r++) {
-            RowConstraints rc = new RowConstraints(CELL_SIZE);
-            rc.setMinHeight(CELL_SIZE);
-            rc.setMaxHeight(CELL_SIZE);
-            boardGrid.getRowConstraints().add(rc);
+            RowConstraints rowConstraints = new RowConstraints(CELL_SIZE);
+            rowConstraints.setMinHeight(CELL_SIZE);
+            rowConstraints.setMaxHeight(CELL_SIZE);
+            boardGrid.getRowConstraints().add(rowConstraints);
         }
 
         /* create rectangles for every cell */
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
                 Rectangle rect = new Rectangle(CELL_SIZE, CELL_SIZE);
-                rect.setFill(EMPTY);
+                rect.setFill(EMPTY_COLOUR);
                 boardGrid.add(rect, x, y);
                 cells[y][x] = rect;
             }
@@ -97,6 +100,19 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         clock = new Timeline(new KeyFrame(Duration.millis(250), new StepHandler())); // (1s = 1e3 ms)
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
+    }
+
+    /**
+     * Handles successive game tick actions
+     */
+    private void nextStep(){
+
+        // Update board
+        moveAndRepaint();
+
+        // Update score
+        updateScore();
+
     }
 
     /**
@@ -151,17 +167,27 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
 
                 // snake head gets different colour
                 if (x == headPos[0] && y == headPos[1]) {
-                    cells[y][x].setFill(SNAKE_HEAD);
+                    cells[y][x].setFill(SNAKE_HEAD_COLOUR);
                     continue;
                 }
 
                 switch (grid[y][x]) {
-                    case 1 -> cells[y][x].setFill(SNAKE);
-                    case 2 -> cells[y][x].setFill(APPLE);
-                    default -> cells[y][x].setFill(EMPTY);
+                    case 1 -> cells[y][x].setFill(SNAKE_COLOUR);
+                    case 2 -> cells[y][x].setFill(APPLE_COLOUR);
+                    default -> cells[y][x].setFill(EMPTY_COLOUR);
                 }
             }
         }
+    }
+
+    /**
+     * Updates the score display based on snake length
+     */
+    private void updateScore(){
+        int snakeSize = snakeGame.getSnake().getSize();
+        String text = "SCORE: " + snakeSize;
+
+        scoreDisplay.setText(text);
     }
 
     private class StepHandler implements EventHandler<ActionEvent> {
@@ -175,7 +201,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
          */
         @Override
         public void handle(ActionEvent event) {
-            moveAndRepaint();
+            nextStep();
         }
     }
 
