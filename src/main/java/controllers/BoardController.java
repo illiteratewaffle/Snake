@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class BoardController implements Initializable, EventHandler<KeyEvent> {
 
     private static final int CELL_SIZE = 30;
-    private static final Color EMPTY  = Color.LIGHTGRAY;
+    private static final Color EMPTY  = Color.web("2b2d30");
     private static final Color SNAKE  = Color.LIMEGREEN;
     private static final Color APPLE  = Color.RED;
 
@@ -87,7 +87,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         paint();
 
         clock = new Timeline(
-                new KeyFrame(Duration.millis(500), new StepHandler(this)));
+                new KeyFrame(Duration.millis(250), new StepHandler(this))); // (1s = 1e3 ms)
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
     }
