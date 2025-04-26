@@ -22,6 +22,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     private static final int CELL_SIZE = 30;
     private static final Color EMPTY  = Color.web("2b2d30");
     private static final Color SNAKE  = Color.LIMEGREEN;
+    private static final Color SNAKE_HEAD = Color.GOLD;
     private static final Color APPLE  = Color.RED;
 
     @FXML
@@ -114,6 +115,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent e) {
         KeyCode key = e.getCode();
+
         if (key == KeyCode.W || key == KeyCode.UP) {
             snakeGame.getSnake().changeDirection(Direction.NORTH);
         } else if (key == KeyCode.A || key == KeyCode.LEFT) {
@@ -134,7 +136,11 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      */
     private void moveAndRepaint() {
         snakeGame.moveSnake();
-        if (snakeGame.checkCollision()) return;
+
+        if (snakeGame.checkCollision()) {
+            return;
+        }
+
         snakeGame.checkAppleEat();
         snakeGame.updateBoard();
         paint();
@@ -144,9 +150,20 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      * Updates representation of every cell based on the game grid.
      */
     private void paint() {
+
+        int[] headPos = snakeGame.getSnake().getBody().get(0);
+
         int[][] grid = snakeGame.getGrid();
+
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
+
+                // snake head gets different colour
+                if (x == headPos[0] && y == headPos[1]) {
+                    cells[y][x].setFill(SNAKE_HEAD);
+                    continue;
+                }
+
                 switch (grid[y][x]) {
                     case 1 -> cells[y][x].setFill(SNAKE);
                     case 2 -> cells[y][x].setFill(APPLE);
