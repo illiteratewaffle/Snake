@@ -10,6 +10,7 @@ module harry.snake {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires javafx.media;
 
     opens controllers to javafx.fxml;
     exports controllers;

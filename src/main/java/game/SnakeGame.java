@@ -27,18 +27,7 @@ public class SnakeGame {
 
     }
 
-    public SnakeGame() throws InterruptedException {
-        startGame();
-
-    }
-
-    /**
-     * Initializes game components and runs the main game loop until over.
-     *
-     * @throws InterruptedException if thread sleep is interrupted
-     */
-    public void startGame() throws InterruptedException {
-
+    public SnakeGame() {
         boardColumns = 20;
         boardRows = 20;
         board = new Board(boardColumns, boardRows);
@@ -50,10 +39,66 @@ public class SnakeGame {
 
         state = GameState.RUNNING;
 
-        while(state == GameState.RUNNING) {
-            gameLoop(snake, apple);
+    }
 
+    public void startGame() {
+        state = GameState.RUNNING;
+    }
+
+    public void moveSnake() {
+        if (state == GameState.RUNNING) {
+            snake.move();
         }
+    }
+
+    public boolean checkCollision() {
+        if (snake.hasCrashed(boardColumns, boardRows)) {
+            state = GameState.GAME_OVER;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkAppleEat() {
+        if (Arrays.toString(snake.getHead()).equals(Arrays.toString(apple.getApplePosition()))) {
+            snake.eat();
+            apple.despawn();
+            apple.spawn();
+            return true;
+        }
+        return false;
+    }
+
+    public void updateBoard() {
+        board.updateBoard(snake, apple);
+    }
+
+    public int[][] getGrid() {
+        return board.getGrid();
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Apple getApple() {
+        return apple;
+    }
+
+    public int getBoardRows() {
+        return boardRows;
+    }
+
+    public int getBoardColumns() {
+        return boardColumns;
     }
 
     /**
