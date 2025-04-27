@@ -91,13 +91,17 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
             }
         }
 
+        // initialize board
         boardGrid.setGridLinesVisible(true);
         boardGrid.setFocusTraversable(true);
         boardGrid.setOnKeyPressed(this);
         boardGrid.requestFocus();
 
+        // spawn snake and apple
         snakeGame.getApple().spawn();
         snakeGame.updateBoard();
+
+        // draw snake and apple
         paint();
 
         /* chatgpt: timeline that drives the game */
