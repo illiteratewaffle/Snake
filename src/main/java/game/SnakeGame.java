@@ -1,8 +1,6 @@
 package game;
 
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
  * Main game controller for the Snake game.
@@ -21,12 +19,10 @@ public class SnakeGame {
     private int boardColumns;
     private GameState state;
 
-    // to test program
-    public static void main(String[] args) throws InterruptedException {
-        SnakeGame game = new SnakeGame();
-
-    }
-
+    /**
+     * Constructs a new SnakeGame with a 20x20 board.
+     * Starts the snake at the center and prepares the apple.
+     */
     public SnakeGame() {
         boardColumns = 20;
         boardRows = 20;
@@ -41,24 +37,36 @@ public class SnakeGame {
 
     }
 
-    public void startGame() {
-        state = GameState.RUNNING;
-    }
-
+    /**
+     * Moves the snake one step forward if the game is still running.
+     */
     public void moveSnake() {
         if (state == GameState.RUNNING) {
             snake.move();
         }
     }
 
+    /**
+     * Checks if the snake has collided with the walls or itself.
+     * If so, sets the game state to GAME_OVER.
+     *
+     * @return true if the snake crashed, false otherwise
+     */
     public boolean checkCollision() {
         if (snake.hasCrashed(boardColumns, boardRows)) {
             state = GameState.GAME_OVER;
+
             return true;
         }
         return false;
     }
 
+    /**
+     * Checks if the snake's head position overlaps the apple's position.
+     * If so, grows the snake and respawns the apple.
+     *
+     * @return true if the apple was eaten, false otherwise
+     */
     public boolean checkAppleEat() {
         if (Arrays.toString(snake.getHead()).equals(Arrays.toString(apple.getApplePosition()))) {
             snake.eat();
@@ -69,86 +77,74 @@ public class SnakeGame {
         return false;
     }
 
+    /**
+     * Updates the internal board representation to reflect the current
+     * snake and apple positions.
+     */
     public void updateBoard() {
         board.updateBoard(snake, apple);
     }
 
+    /**
+     * Returns the current board grid.
+     *
+     * @return a 2D integer array representing the board state
+     */
     public int[][] getGrid() {
         return board.getGrid();
     }
 
+    /**
+     * Returns the current state of the game (e.g., RUNNING or GAME_OVER).
+     *
+     * @return the game state
+     */
     public GameState getState() {
         return state;
     }
 
+    /**
+     * Returns the Snake object player controls.
+     *
+     * @return the snake
+     */
     public Snake getSnake() {
         return snake;
     }
 
+    /**
+     * Returns the Board object (the grid).
+     *
+     * @return the board
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * Returns the Apple object placed on the board.
+     *
+     * @return the apple
+     */
     public Apple getApple() {
         return apple;
     }
 
+    /**
+     * Returns the number of rows in the board.
+     *
+     * @return number of rows
+     */
     public int getBoardRows() {
         return boardRows;
     }
 
+    /**
+     * Returns the number of columns in the board.
+     *
+     * @return number of columns
+     */
     public int getBoardColumns() {
         return boardColumns;
-    }
-
-    /**
-     * Runs one interation of the main game loop:
-     * spawns apple, reads input, moves the snake,
-     * checks for collisions, handles eating, updates board,
-     * and prints the new state.
-     */
-    public void gameLoop(Snake snake, Apple apple){
-
-        apple.spawn();
-
-        // Change direction using text
-        Scanner scanner = new Scanner(System.in);
-        String direction = scanner.nextLine();
-        if (Objects.equals(direction, "w")) {
-            snake.changeDirection(Direction.NORTH);
-        } else if (Objects.equals(direction, "a")) {
-            snake.changeDirection(Direction.WEST);
-        } else if (Objects.equals(direction, "s")) {
-            snake.changeDirection(Direction.SOUTH);
-        } else if (Objects.equals(direction, "d")) {
-            snake.changeDirection(Direction.EAST);
-        }
-        // ================
-
-        snake.move();
-
-        // if snake is died
-        if (snake.hasCrashed(boardColumns, boardRows)){
-            state = GameState.GAME_OVER;
-            System.out.println("game over you suck");
-            return; // makes program stop drawing the grid after a crash. gets rid of annoying out-of-bounds error message
-        }
-
-        // if snake eats apple
-        if (Arrays.toString(snake.getHead()).equals(Arrays.toString(apple.getApplePosition()))){
-            snake.eat();
-            apple.despawn();
-            apple.spawn();
-        }
-
-        board.updateBoard(snake, apple);
-
-        // print the board. update board upon pressing enter
-        for (int[] element : board.getGrid()) {
-            System.out.println(Arrays.toString(element));
-        }
-        System.out.println("===============================================");
-        // ===============
-
     }
 }

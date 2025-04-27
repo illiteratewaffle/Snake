@@ -1,7 +1,5 @@
 package game;
 
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -20,6 +18,7 @@ public class Snake {
     private int size;
     private Direction currentDirection;
     private boolean shouldGrow;
+    private boolean isSnakeAlive;
 
     /**
      * Constructs a new snake at the given starting position, starting at length 1,
@@ -36,6 +35,8 @@ public class Snake {
         shouldGrow = false;
 
         this.size = 1;
+
+        isSnakeAlive = true;
     }
 
     /**
@@ -115,12 +116,16 @@ public class Snake {
 
         // crashes into wall
         if (x < 0 || y < 0 || x >= boardColumns || y >= boardRows){
+            isSnakeAlive = false;
+
             return true;
         }
 
         // crashes into itself
         for (int i = 1; i < body.size(); i++){
             if (Arrays.equals(head, body.get(i))){
+                isSnakeAlive = false;
+
                 return true;
             }
         }
@@ -175,6 +180,15 @@ public class Snake {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Returns alive status of snake
+     *
+     * @return true if snake is alive, false otherwise
+     */
+    public boolean getIsSnakeAlive(){
+        return isSnakeAlive;
     }
 
 }

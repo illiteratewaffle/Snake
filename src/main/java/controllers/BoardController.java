@@ -30,14 +30,13 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     private GridPane boardGrid;
     @FXML
     private Label scoreDisplay;
+    @FXML
+    private Label gameOverDisplay;
 
     private SnakeGame snakeGame;
     private Rectangle[][] cells;
     private int rows;
     private int cols;
-
-    /* chatgpt: timeline that drives the game */
-    private Timeline clock;
 
     /**
      * Sets up the board view, configures the game model, and starts the game clock.
@@ -97,7 +96,8 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         snakeGame.updateBoard();
         paint();
 
-        clock = new Timeline(new KeyFrame(Duration.millis(250), new StepHandler())); // (1s = 1e3 ms)
+        /* chatgpt: timeline that drives the game */
+        Timeline clock = new Timeline(new KeyFrame(Duration.millis(250), new StepHandler())); // (1s = 1e3 ms)
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
     }
@@ -107,12 +107,14 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      */
     private void nextStep(){
 
+        // Update game state
+        move();
+
         // Update board
-        moveAndRepaint();
+        paint();
 
         // Update score
-        updateScore();
-
+        displayScore();
     }
 
     /**
@@ -140,17 +142,29 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     /**
      * Advances the game state and repaints the board.
      * Stops early if the snake dies.
+     * Displays game over message if the snake dies
      */
-    private void moveAndRepaint() {
+    private void move () {
         snakeGame.moveSnake();
 
         if (snakeGame.checkCollision()) {
+            if (!snakeGame.getSnake().getIsSnakeAlive()) {
+                displayGameOver();
+            }
+
             return;
         }
 
         snakeGame.checkAppleEat();
         snakeGame.updateBoard();
-        paint();
+    }
+
+    /**
+     * Displays a game over message to the player
+     */
+    private void displayGameOver(){
+        String text = "game over :(";
+        gameOverDisplay.setText(text);
     }
 
     /**
@@ -183,7 +197,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     /**
      * Updates the score display based on snake length
      */
-    private void updateScore(){
+    private void displayScore(){
         int snakeSize = snakeGame.getSnake().getSize();
         String text = "SCORE: " + snakeSize;
 
