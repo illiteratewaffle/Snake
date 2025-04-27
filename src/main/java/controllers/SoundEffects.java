@@ -1,4 +1,4 @@
-package game;
+package controllers;
 
 import javafx.scene.media.AudioClip;
 import java.util.Objects;

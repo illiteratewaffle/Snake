@@ -1,6 +1,5 @@
 package controllers;
 
-import com.almasb.fxgl.audio.Sound;
 import game.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,7 +16,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable, EventHandler<KeyEvent> {
