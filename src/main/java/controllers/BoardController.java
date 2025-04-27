@@ -109,10 +109,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      */
     private void nextStep(){
 
-        // Update game state
-        if (snakeGame.getSnake().getIsSnakeAlive()) {
-            move();
-        }
+        move();
 
         // Update board
         paint();
@@ -225,7 +222,9 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
          */
         @Override
         public void handle(ActionEvent event) {
-            nextStep();
+            if (snakeGame.getSnake().getIsSnakeAlive()) {
+                nextStep();
+            }
         }
     }
 
