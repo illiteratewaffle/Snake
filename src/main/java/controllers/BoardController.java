@@ -1,5 +1,6 @@
 package controllers;
 
+import com.almasb.fxgl.audio.Sound;
 import game.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable, EventHandler<KeyEvent> {
@@ -108,7 +110,9 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     private void nextStep(){
 
         // Update game state
-        move();
+        if (snakeGame.getSnake().getIsSnakeAlive()) {
+            move();
+        }
 
         // Update board
         paint();
@@ -150,12 +154,18 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         if (snakeGame.checkCollision()) {
             if (!snakeGame.getSnake().getIsSnakeAlive()) {
                 displayGameOver();
+
+                SoundEffects.playDie();
             }
 
             return;
         }
 
-        snakeGame.checkAppleEat();
+        if (snakeGame.checkAppleEat()){
+            //play eat sound
+            SoundEffects.playEat();
+        }
+
         snakeGame.updateBoard();
     }
 
