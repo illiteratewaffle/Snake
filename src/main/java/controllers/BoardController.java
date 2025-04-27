@@ -3,6 +3,7 @@ package controllers;
 import game.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -48,6 +49,9 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        // Focus the grid so it can receive key presses immediately
+        Platform.runLater(() -> boardGrid.requestFocus());
 
         snakeGame = new SnakeGame();
         rows = snakeGame.getBoardRows();
