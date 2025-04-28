@@ -39,7 +39,7 @@ public class MenuController implements Initializable {
                 Media media = new Media(resource.toExternalForm());
                 menuMusic = new MediaPlayer(media);
                 menuMusic.setCycleCount(MediaPlayer.INDEFINITE);
-                menuMusic.setVolume(0.3);
+                menuMusic.setVolume(0.2);
                 menuMusic.play();
             } else {
                 System.out.println("Menu music file not found!");
