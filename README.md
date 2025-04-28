@@ -48,6 +48,9 @@ Gameplay scene
 2. Mark the downloaded JavaFX SDK as a **Global Library / Module** if your IDE doesn’t auto‑resolve it.
 3. Run the `Main` class (package `main`).
 
+#### Alternatively:
+1. run snake.jar with OpenJDK Platform binary
+
 ---
 
 ## Controls
