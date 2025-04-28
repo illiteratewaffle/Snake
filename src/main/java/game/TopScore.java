@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class TopScore extends Score {
 
-    private static final String FILE_PATH = "src/main/TopScore/TopScore.txt";
+    private static final String FILE_PATH = "SnakeTopScore.txt";
     private static int oldTop;
     private static int newTop;
 
@@ -45,9 +45,13 @@ public class TopScore extends Score {
      * @return the previous highest score
      */
     public static int getScoreFromFile() {
+        String line = FileHandler.getFirstLine();
 
-        FileHandler.readFile(FILE_PATH);
-        oldTop = Integer.parseInt(FileHandler.getFirstLine());
+        if (line == null || line.isEmpty()) {
+            oldTop = 0;
+        } else {
+            oldTop = Integer.parseInt(line);
+        }
 
         return oldTop;
     }

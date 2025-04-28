@@ -88,7 +88,7 @@ public class MenuController implements Initializable {
     public void play(ActionEvent event) throws IOException {
         menuMusic.stop();
 
-        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("board.fxml")));
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/controllers/board.fxml")));
 
         Stage stage = (Stage) playButton.getScene().getWindow();
 

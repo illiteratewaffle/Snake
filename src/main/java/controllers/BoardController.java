@@ -261,7 +261,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         TopScore.updateTopScore();
 
         // loads menu screen
-        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/controllers/menu.fxml")));
 
         Stage stage = (Stage) backButton.getScene().getWindow();
 
