@@ -49,7 +49,7 @@ Gameplay scene
 3. Run the `Main` class (package `main`).
 
 #### Alternatively:
-1. Execute snake.jar with OpenJDK Platform binary. Note that the Top Scores ("SnakeTopScore"") file will be saved in the same directory you put the snake.jar file in.
+1. Execute snake.jar (out/artifacts/snake_jar/snake.jar) with OpenJDK Platform binary. Note that the Top Scores ("SnakeTopScore"") file will be saved in the same directory you put the snake.jar file in.
 
 ---
 
