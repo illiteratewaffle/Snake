@@ -1,5 +1,6 @@
 package controllers;
 
+import game.TopScore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,7 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        topScoreDisplay.setText("TOP SCORE: " + TopScore.getScoreFromFile());
     }
 
     public void play(ActionEvent event) throws IOException {
@@ -36,5 +37,7 @@ public class MenuController implements Initializable {
         stage.setTitle("Snake");
         stage.show();
     }
+
+
 
 }

@@ -15,6 +15,7 @@ public class SnakeGame {
     private Snake snake;
     private Apple apple;
     private Board board;
+    private Score score;
     private int boardRows;
     private int boardColumns;
     private GameState state;

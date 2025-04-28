@@ -7,16 +7,23 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class BoardController implements Initializable, EventHandler<KeyEvent> {
@@ -33,6 +40,10 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     private Label scoreDisplay;
     @FXML
     private Label gameOverDisplay;
+    @FXML
+    private Button backButton;
+
+    private Timeline clock;
 
     private SnakeGame snakeGame;
     private Rectangle[][] cells;
@@ -105,7 +116,7 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         paint();
 
         /* chatgpt: timeline that drives the game */
-        Timeline clock = new Timeline(new KeyFrame(Duration.millis(250), new StepHandler())); // (1s = 1e3 ms)
+        clock = new Timeline(new KeyFrame(Duration.millis(250), new StepHandler())); // (1s = 1e3 ms)
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
     }
@@ -211,10 +222,30 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
      * Updates the score display based on snake length
      */
     private void displayScore(){
-        int snakeSize = snakeGame.getSnake().getSize();
-        String text = "SCORE: " + snakeSize;
+        Score.updateScore(snakeGame);
+
+        String text = "SCORE: " + Score.getCurrentScore();
 
         scoreDisplay.setText(text);
+    }
+
+    public void back(ActionEvent event) throws IOException {
+
+        // stops game
+        clock.stop();
+
+        // saves score
+        TopScore.updateTopScore();
+
+        // loads menu screen
+        Parent newRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("menu.fxml")));
+
+        Stage stage = (Stage) backButton.getScene().getWindow();
+
+        stage.setScene(new Scene(newRoot));
+        stage.setTitle("Main Menu");
+        stage.show();
+        //===
     }
 
     private class StepHandler implements EventHandler<ActionEvent> {

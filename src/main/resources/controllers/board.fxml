@@ -81,9 +81,9 @@
                         </ImageView>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Menu">
+                              <Button fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Back to Menu" textFill="#3dd759">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Button>
                            </children>
