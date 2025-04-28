@@ -1,4 +1,4 @@
-# SnakeFX
+# Snake v1.0.0
 
 A straightforward, modular JavaFX remake of the classic **Snake** game.  
 The project is split into 3 packages:
