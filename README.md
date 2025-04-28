@@ -49,7 +49,7 @@ Gameplay scene
 3. Run the `Main` class (package `main`).
 
 #### Alternatively:
-1. run snake.jar with OpenJDK Platform binary
+1. Execute snake.jar with OpenJDK Platform binary. Note that the Top Scores ("SnakeTopScore"") file will be saved in the same directory you put the snake.jar file in.
 
 ---
 
@@ -75,7 +75,7 @@ src/
      └── resources/         # ➜ FXML, MP3, etc.
 ```
 
-* **Top Score** data is written to `src/main/TopScore/TopScore.txt` the first time the game ends.
+* **Top Score** data is written to `/SnakeTopScore.txt` the first time the game ends.
 * Audio assets (`snake_eating.mp3`, `snake_dying.mp3`, `menu_soundtrack.mp3`) live under `src/main/resources/`.
 
 ---
