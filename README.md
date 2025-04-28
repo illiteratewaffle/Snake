@@ -23,11 +23,11 @@ game          ─ pure game-logic engine (no JavaFX imports)
 ## Screenshots
 Main menu scene
 
-![the main menu](Main%20Menu%20Screenshot.png)
+![the main menu](gameplayScreenshots/Main%20Menu%20Screenshot.png)
 
 Gameplay scene
 
-![Snake gameplay](Gameplay%20Screenshot.png)
+![Snake gameplay](gameplayScreenshots/Gameplay%20Screenshot.png)
 
 
 ---
@@ -46,8 +46,7 @@ Gameplay scene
 
 1. **Import as Maven project** (IntelliJ IDEA, VS Code, Eclipse, …)
 2. Mark the downloaded JavaFX SDK as a **Global Library / Module** if your IDE doesn’t auto‑resolve it.
-3. Run the `Main` class (package `main`).  
-   It simply calls `MenuApplication.runSnake()` to start the JavaFX application.
+3. Run the `Main` class (package `main`).
 
 ---
 
