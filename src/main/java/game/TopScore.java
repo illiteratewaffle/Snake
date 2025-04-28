@@ -47,11 +47,8 @@ public class TopScore extends Score {
     public static int getScoreFromFile() {
         String line = FileHandler.getFirstLine();
 
-        if (line == null || line.isEmpty()) {
-            oldTop = 0;
-        } else {
-            oldTop = Integer.parseInt(line);
-        }
+        FileHandler.readFile(FILE_PATH);
+        oldTop = Integer.parseInt(FileHandler.getFirstLine());
 
         return oldTop;
     }
