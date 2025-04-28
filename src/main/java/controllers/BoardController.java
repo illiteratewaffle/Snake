@@ -42,6 +42,10 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     private Label gameOverDisplay;
     @FXML
     private Button backButton;
+    @FXML
+    private Pane pauseScreen;
+    @FXML
+    private Label pauseText;
 
     private Timeline clock;
 
@@ -107,6 +111,8 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         boardGrid.setFocusTraversable(true);
         boardGrid.setOnKeyPressed(this);
         boardGrid.requestFocus();
+        pauseScreen.setVisible(false);
+        pauseText.setVisible(false);
 
         // spawn snake and apple
         snakeGame.getApple().spawn();
@@ -143,6 +149,26 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
     public void handle(KeyEvent e) {
         KeyCode key = e.getCode();
 
+        // Pausing + ignore all keys if game paused
+        if (key == KeyCode.SPACE) {
+            if (snakeGame.getState() == GameState.RUNNING) {
+                snakeGame.setState(GameState.PAUSED);
+                clock.pause();
+                pauseScreen.setVisible(true);
+                pauseText.setVisible(true);
+            } else if (snakeGame.getState() == GameState.PAUSED) {
+                snakeGame.setState(GameState.RUNNING);
+                clock.play();
+                pauseScreen.setVisible(false);
+                pauseText.setVisible(false);
+            }
+            return;
+        }
+        if (snakeGame.getState() == GameState.PAUSED) {
+            return;
+        }
+
+        // Direction changes
         if (key == KeyCode.W || key == KeyCode.UP) {
             snakeGame.getSnake().changeDirection(Direction.NORTH);
         } else if (key == KeyCode.A || key == KeyCode.LEFT) {
@@ -152,9 +178,6 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
         } else if (key == KeyCode.D || key == KeyCode.RIGHT) {
             snakeGame.getSnake().changeDirection(Direction.EAST);
         }
-
-        // todo: add pause game feature
-
     }
 
     /**
@@ -259,9 +282,10 @@ public class BoardController implements Initializable, EventHandler<KeyEvent> {
          */
         @Override
         public void handle(ActionEvent event) {
-            if (snakeGame.getSnake().getIsSnakeAlive()) {
+            if (snakeGame.getState() == GameState.RUNNING && snakeGame.getSnake().getIsSnakeAlive()) {
                 nextStep();
             }
+
         }
     }
 

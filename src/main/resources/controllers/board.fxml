@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -30,6 +31,18 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
+                  <Pane fx:id="pauseScreen" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: rgba(0,0,0,0.4);">
+                     <children>
+                        <Label fx:id="pauseText" text="Paused" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="285.0" left="285.0" right="285.0" top="285.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
             <VBox alignment="CENTER" prefHeight="600.0" prefWidth="200.0">

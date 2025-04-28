@@ -87,6 +87,14 @@ public class SnakeGame {
     }
 
     /**
+     * Lets controller set GameState
+     * @param s
+     */
+    public void setState(GameState s){
+        this.state = s;
+    }
+
+    /**
      * Returns the current board grid.
      *
      * @return a 2D integer array representing the board state
